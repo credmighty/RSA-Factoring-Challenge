@@ -35,3 +35,4 @@ This task is the same as task 0, except:
 How far can you go in less than 5 seconds?
 
 
+The project was written in C
