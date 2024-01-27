@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-import sys
+from sys import argv
+"""Factorize as many nos as possible into a product of 2 smaller nos"""
 
 
 def fact(num):
@@ -13,15 +14,15 @@ def fact(num):
     return (f2, f1)
 
 
-if len(sys.argv) != 2:
-    sys.exit("Wrong usage: {} <file_path>".format(sys.argv[0]))
+def readfile(filename):
+    """readfile and print the output the required format"""
 
-fileraw = sys.argv[1]
+    with open(filename) as mfile:
+        for line in mfile.readlines():
+            n = int(line.rstrip())
+            p, q = fact(n)
+            print("{}={}*{}".format(n, p, q))
 
-file = open(fileraw, 'r')
-lines = file.readlines()
 
-for line in lines:
-    n = int(line.rstrip())
-    p, q = fact(n)
-    print("{}={}*{}".format(n, p, q))
+if __name__ == "__main__":
+    readfile(argv[1])
