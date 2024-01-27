@@ -22,6 +22,6 @@ file = open(fileraw, 'r')
 lines = file.readlines()
 
 for line in lines:
-    num = int(line.rstrip())
-    factor2, factor1 = fact(num)
-    print("{}={}*{}".format(num, factor2, factor1))
+    n = int(line.rstrip())
+    p, q = fact(n)
+    print("{}={}*{}".format(n, p, q))
