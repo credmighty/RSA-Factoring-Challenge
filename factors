@@ -1,30 +1,27 @@
 #!/usr/bin/python3
-"""Factorize as many numbers as possible into a product of two smaller nos."""
-from sys import argv
+import sys
 
 
-def factor(number):
-    """func to find two small multiples of the given number"""
-    n = 2
-    if number < 2:
-        return
+def fact(num):
+	"""find 2 factors for a given number"""
+	f1 = 2
+	while(num % f1):
+		if (f1 <= num):
+			f1 += 1
 
-    while number % n:
-        n += 1
-    print("{:.0f}={:.0f}*{:.0f}".format(number, number / n, n))
+	f2 = num // f1
+	return (f2, f1)
 
 
-if len(argv) != 2:
-    exit()
+if len(sys.argv) != 2:
+	sys.exit("Wrong usage: {} <file_path>".format(sys.argv[0]))
 
-if __name__ == "__main__":
-    try:
-        with open(argv[1]) as file:
-            line = file.readline()
+fileraw = sys.argv[1]
 
-            while line != "":
-                number = int(line.split('\n')[0])
-                factor(number)
-                line = file.readline()
-    except:
-        pass
+file = open(fileraw, 'r')
+lines = file.readlines()
+
+for line in lines:
+	num = int(line.rstrip())
+	factor2, factor1 = fact(num)
+	print("{}={}*{}".format(num, factor2, factor1))
