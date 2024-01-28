@@ -1,17 +1,26 @@
 #!/usr/bin/python3
 from sys import argv
+import math
 """Factorize as many nos as possible into a product of 2 smaller nos"""
 
 
 def fact(num):
     """find 2 factors for a given number"""
-    f1 = 2
-    while(num % f1):
-        if (f1 <= num):
-            f1 += 1
-
-    f2 = num // f1
-    return (f2, f1)
+    if num % 2 == 0:
+        i = 2
+        print("{}={}*{}".format(num, int(num // i), i))
+    else:
+        sqr = int(math.sqrt(num)) + 1
+        for i in range(3, sqr, +2):
+            if num % i == 0:
+                print("{}={}*{}".format(num, int(num // i), i))
+                return
+            if num % (sqr + i) == 0:
+                print("{}={}*{}".format(num, sqr + i, int(num // (sqr + i))))
+                return
+            if num % (sqr - i) == 0:
+                print("{}={}*{}".format(num, sqr - i, int(num // (sqr - i))))
+                return
 
 
 def readfile(filename):
@@ -20,8 +29,7 @@ def readfile(filename):
     with open(filename) as mfile:
         for line in mfile.readlines():
             n = int(line.rstrip())
-            p, q = fact(n)
-            print("{}={}*{}".format(n, p, q))
+            result = fact(n)
 
 
 if __name__ == "__main__":
