@@ -26,9 +26,9 @@ def fact(num):
 def readfile(filename):
     """readfile and print the output the required format"""
 
-    with open(filename) as mfile:
+    with open(filename, encoding="utf-8") as mfile:
         for line in mfile.readlines():
-            n = int(line.rstrip())
+            n = int(line)
             result = fact(n)
 
 
