@@ -1,48 +1,28 @@
-#!/usr/bin/env bash
-#is a challenge
-check_factor()
-{
-	if [ $# -ne 3 ];
-        then
-                args=("$@")
-                count=0
-                num2=1
-                for a in ${args[*]};
-                do
-                        if [ $count -gt 1 ];
-                        then
-                                num2=$(echo $a*$num2 | bc)
-                        fi
-                        count=$((count + 1))
-                done
-        else
-                num2=$3
-        fi
+#!/usr/bin/python3
+from sys import argv
+"""Factorize as many nos as possible into a product of 2 smaller nos"""
 
-        num1=$2
-        num=$(echo "$1" | tr ':' '=')
 
-        result=$(echo "if($num2 > $num1) 1 else 0" | bc)
-	        if ((result == 1)); then
-		        numcp=$num1
-		        num1=$num2
-		        num2=$numcp
-                fi
+def fact(num):
+    """find 2 factors for a given number"""
+    f1 = 2
+    while(num % f1):
+        if (f1 <= num):
+            f1 += 1
 
-        echo "$num$num1*$num2"
-}
+    f2 = num // f1
+    return (f2, f1)
 
-if [ $# -ne 1 ]
-then
-        echo 'Usage: rsa <file>'
-        exit 1
-else
 
-        while read i
-        do
+def readfile(filename):
+    """readfile and print the output the required format"""
 
-                result=$(factor "$i")
-                check_factor $result
+    with open(filename) as mfile:
+        for line in mfile.readlines():
+            n = int(line.rstrip())
+            p, q = fact(n)
+            print("{}={}*{}".format(n, p, q))
 
-        done < "$1"
-fi
+
+if __name__ == "__main__":
+    readfile(argv[1])
